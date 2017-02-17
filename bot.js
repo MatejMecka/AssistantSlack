@@ -25,7 +25,7 @@ controller.hears('hello','direct_message,direct_mention,mention',function(bot,me
 controller.hears('weather (.*)','direct_message,direct_mention,mention',function(bot,message) { 
 	 var  fullmessage = message  
 	 var city = message.match[1];
-	 var api = "http://api.openweathermap.org/data/2.5/weather?q=" + city +  "&units=metric&appid=c2d288c680b9d2d2a33120d3492a0415"
+	 var api = "http://api.openweathermap.org/data/2.5/weather?q=" + city +  "&units=metric&appid=" + config.token"
 	 request(api, function(error, response, body) {
         if (!error && response.statusCode == 200) {
         // Try to parse the json. If it errors it gets caught.

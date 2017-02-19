@@ -1,8 +1,8 @@
 var Botkit = require("botkit")
 var config = require("./config.js")
 var request = require("request")
+var scraper = require('google-search-scraper');
 var info = ["help", "info", "commands", "instructions"]
-
 
 var response = "Hello there :)"
 var controller = Botkit.slackbot({
@@ -21,6 +21,42 @@ controller.hears('hello','direct_message,direct_mention,mention',function(bot,me
 	bot.reply(message, "Hey there! How can I help you?")
 })
 
+controller.on('bot_channel_join',function(bot,message){
+
+	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I am still not perfect but i'm worked on it in @matejmecka's free time")
+
+
+})
+
+
+controller.on('user_channel_join',function(bot,message){
+
+bot.reply("Hello there! Welcome to the [INSERT TEAMNAME HERE] Slack Team! I'm your personal assistant. I may not be the best yet, But that is worked out")
+})
+
+
+controller.hears('search (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+	var  fullmessage = message  
+        var term = message.match[1];
+
+	var options = {
+ 	 query: term,
+  	 host: 'www.google.com',
+  	 lang: 'en',
+  	 limit: '3'
+};
+
+bot.reply(message,"Here is what i found: ")
+
+scraper.search(options, function(err, url) {
+  if(err) throw err;
+  bot.reply(message,url)		
+
+
+});
+
+
+})
 
 controller.hears('weather (.*)','direct_message,direct_mention,mention',function(bot,message) { 
 	 var  fullmessage = message  
@@ -50,7 +86,7 @@ controller.hears('date','direct_message,direct_mention,mention',function(bot,mes
 })
 
 controller.hears(info,'direct_message,direct_mention,mention',function(bot,message) { 
-        bot.reply(message, "Hello there! I'm the @google bot and i'm here to help you with your searches on this slack chat! I'm currently in development and blame @matejmecka for everything. Sadly I don't have the search function yet. But i have the date command :)")
+        bot.reply(message, "Hello there! I'm the @google bot and I'm here to help you with your searches on this slack chat! I'm currently in development and blame @matejmecka for everything. My developer is active on GitHub and visit him here: https://github.com/MatejMecka/GoogleAssistantSlack/")
 })
 
 
@@ -65,5 +101,4 @@ controller.hears('exit','direct_message,direct_mention,mention',function(bot,mes
 	console.log("User: " + message.user + " Tried to shut me down :c")
 }
 })
-
 

@@ -24,7 +24,7 @@ controller.hears('hello','direct_message,direct_mention,mention',function(bot,me
 
 controller.on('bot_channel_join',function(bot,message){
 
-	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka for that.")
+	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka on GitHub for that.")
 
 
 })
@@ -32,7 +32,7 @@ controller.on('bot_channel_join',function(bot,message){
 
 controller.on('user_channel_join',function(bot,message){
 
-bot.reply("Hello there! Welcome to the /r/TeenDeveloper Slack Team! I'm your personal assistant. I still suck though so blame @matejmecka for that.")
+bot.reply("Hello there! Welcome to the [SLACK TEAM HERE] I'm your personal assistant. I still suck though so blame @matejmecka for that.")
 
 })
 

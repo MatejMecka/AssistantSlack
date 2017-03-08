@@ -24,7 +24,7 @@ controller.hears('hello','direct_message,direct_mention,mention',function(bot,me
 
 controller.on('bot_channel_join',function(bot,message){
 
-	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka on GitHub for that.")
+	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka for that.")
 
 
 })
@@ -32,7 +32,7 @@ controller.on('bot_channel_join',function(bot,message){
 
 controller.on('user_channel_join',function(bot,message){
 
-bot.reply("Hello there! Welcome to the [INSERT SLACK TEAM NAME HERE] I'm your personal assistant. I still suck though so blame @matejmecka for that.")
+bot.reply("Hello there! Welcome to the /r/TeenDeveloper Slack Team! I'm your personal assistant. I still suck though so blame @matejmecka for that.")
 
 })
 
@@ -44,7 +44,7 @@ controller.hears('search (.*)','direct_message,direct_mention,mention',function(
 	else{
 
  let  options = {
- 	 query: term,
+  query: term,
   host: 'www.google.com',
   lang: 'en',
   limit: '3',
@@ -69,20 +69,49 @@ controller.hears('weather (.*)','direct_message,direct_mention,mention',function
 	 let city = message.match[1];
 	 let api = "http://api.openweathermap.org/data/2.5/weather?q=" + city +  "&units=metric&appid=" + config.weathertoken
 	 request(api, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+         if (!error && response.statusCode == 200) {
         // Try to parse the json. If it errors it gets caught.
-        let weatherjson = JSON.parse(body);
-        let weather = weatherjson['weather'][0]['main'];
-        let temperaturejson =  weatherjson['main']['temp']
-        let temperature = Math.round(temperaturejson)
-        bot.reply(message, "The weather for " + city + " is: " + weather + " with a temperature of " + temperature + "°C");
+         let weatherjson = JSON.parse(body);
+         let weather = weatherjson['weather'][0]['main'];
+         let temperaturejson =  weatherjson['main']['temp']
+         let temperature = Math.round(temperaturejson)
+         bot.reply(message, "The weather for " + city + " is: " + weather + " with a temperature of " + temperature + "°C");
             } 
-        else {
+         else  {
               console.error(error);
               console.log(response);
-            }
-	 });
+             }
+	  });
 })
+
+
+controller.hears('define (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+
+	let word = message.match[1];
+	let api = "https://od-api.oxforddictionaries.com:443/api/v1/entries/"  + config.language + '/' + word.toLowerCase()
+
+	var options = {
+ 		 url: api,
+  		 headers: {
+    			'app_id': config.app_id ,
+			'app_key': config.app_key
+  			 }
+           };
+
+function callback(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var info = JSON.parse(body);
+    bot.reply(message, word + "\n" + info['results'][0]['lexicalEntries'][0]['pronunciations'][0]['phoneticSpelling'] + "\n" + "/ "  + "_" + info['results'][0]['lexicalEntries'][0]['lexicalCategory'] + "_" )
+    bot.reply(message, "1. " + info['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'])	
+  }
+}
+
+request(options, callback);
+
+
+})
+
+
 
 
 
@@ -92,7 +121,7 @@ controller.hears('date','direct_message,direct_mention,mention',function(bot,mes
 })
 
 controller.hears(triggers.info,'direct_message,direct_mention,mention',function(bot,message) { 
-        bot.reply(message, "Hello there! I'm the @google bot and I'm here to help you with your searches on this slack chat! I'm currently in development and blame @matejmecka for everything. My developer is active on GitHub and visit him here: https://github.com/MatejMecka/GoogleAssistantSlack/")
+        bot.reply(message, "Hello there! I'm the @google bot and i'm here to help you with your searches on this slack chat! I'm currently in development and blame @matejmecka for everything. Sadly I don't have the search function yet. But i have the date command :)")
 })
 
 controller.hears(triggers.love,'direct_message,direct_mention,mention',function(bot,message) { 
@@ -114,5 +143,4 @@ controller.hears('exit','direct_message,direct_mention,mention',function(bot,mes
 	console.log("User: " + message.user + " Tried to shut me down :c")
 }
 })
-
 

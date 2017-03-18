@@ -28,7 +28,9 @@ A Slack Bot that is a Google Assistant. No not that assistant on Google Home dev
 ### FAQ:
 
 Q: Is the project dead?
+
 A: No. I'm just busy
 
 Q: Why are there like 5 commands
+
 A: Cause I a) didn't add them b) didn't thought of them c) too lazy to make it d) all of the above

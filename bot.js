@@ -121,7 +121,7 @@ controller.hears('date','direct_message,direct_mention,mention',function(bot,mes
 })
 
 controller.hears(triggers.info,'direct_message,direct_mention,mention',function(bot,message) { 
-        bot.reply(message, "Hello there! I'm the @google bot and i'm here to help you with your searches on this slack chat! I'm currently in development and blame @matejmecka for everything. Sadly I don't have the search function yet. But i have the date command :)")
+        bot.reply(message, "Hello there! I'm the @google bot and i'm here to help you with your searches on this slack chat! I'm made by @MatejMecka. You can learn more about me or contribute to my code on Github at https://github.com/MatejMecka/GoogleAssistantSlack/. I'm powered by Google, Dark Sky(For weather), Oxford's Dictionary API for the define command ")
 })
 
 controller.hears(triggers.love,'direct_message,direct_mention,mention',function(bot,message) { 

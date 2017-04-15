@@ -13,17 +13,20 @@ A Slack Bot that is a Google Assistant. No not that assistant on Google Home dev
  - Botkit!
  - Request
  - Google Search Scraper
+ - Oxford Dictionary API
 
 ### Installation:
 	
 
  - Install Botkit using `npm install --save botkit`
  - Install Request & Google searh Scraper using npm too:  `npm install request` & `npm install google-search-scraper`
+ - Install the node-google-translate using `npm install google-translate --save`
  
 ### Known Issues:
  
  - Google Search Scraper gives 10 results instead of the results specified(Fixed by modyfing directly the module)
- - Botkit crashes when it gets exit(I have no idea why)
+ - Captcha(Make a VPN to the bot, connect via VPN, fill out captcha for latest search, try again.)
+ - Translation returns BAD_NETWORK or something like that(Fixed by modyfying directly the module)
 
 ### FAQ:
 
@@ -31,6 +34,6 @@ Q: Is the project dead?
 
 A: No. I'm just busy
 
-Q: Why are there like 5 commands
+Q: Why are there like 6 commands
 
 A: Cause I a) didn't add them b) didn't thought of them c) too lazy to make it d) all of the above

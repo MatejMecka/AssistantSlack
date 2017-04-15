@@ -144,3 +144,21 @@ controller.hears('exit','direct_message,direct_mention,mention',function(bot,mes
 }
 })
 
+controller.hears('translate (.*) ','direct_message,direct_mention,mention',function(bot,message) { 
+
+let totranslate = message.match[1];
+
+translate(totranslate, {to: targetlang}).then(res => {
+
+bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " + res.text)
+
+
+}).catch(err => {
+
+    console.error(err);
+
+});
+
+
+
+})

@@ -37,33 +37,66 @@ bot.reply("Hello there! Welcome to the [SLACK TEAM HERE] I'm your personal assis
 })
 
 
-controller.hears('search (.*)','direct_message,direct_mention,mention',function(bot,message) { 
-         let term = message.match[1];
+controller.hears('search (.*)','direct_message,direct_mention,mention',function(bot,message) {
+        let term = message.match[1];
+        api = "https://www.googleapis.com/customsearch/v1?key=" + config.cseapi + "&cx=" + config.cse + "&q=" + term
 
-	if(triggers.search) {bot.reply(message, "Go outside you piece of shit and also don't be an akward piece of shit and ask her out for fuck sake.")}
-	else{
 
- let  options = {
-  query: term,
-  host: 'www.google.com',
-  lang: 'en',
-  limit: '3',
-  params: {} // params will be copied as-is in the search URL query string 
-};
+bot.reply(message,"Searching using Google Custom Search Engine... ");
 
-bot.reply(message,"Here is what i found: ")
+    request(api, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
 
-scraper.search(options, function(err, url) {
-  // This is called for each result 
-  if(err) throw err;
-  bot.reply(message,url)		
+                let searchesjson = JSON.parse(body);
+
+                bot.reply(message,"Here are some results I got:");
+
+                for(var i=0; i < 3; i++){
+                        bot.reply(message, searchesjson);
+                        }
+
+            } 
+
+// If The Google Custom Engine Fails in any way it'll be redirect to the Google Scraper module.
+
+        else{
+
+                bot.reply(message,"There was an error with Google Custom Search Engine! Trying with scraping Google...")
+
+                 let  options = {
+                        query: term,
+                	host: 'www.google.com',
+                        lang: 'en',
+                        limit: '3',
+                        params: {} 
+                };
+
+
+                scraper.search(options, function(err, url) {
+			
+            if(err){
+
+                bot.reply(message, "There was an error with scraping Google too. Sorry for the inconvinience please try again later.")
+
+                 }
+
+                else{
+
+                bot.reply(message,url)
+
+                }
+
+        });
+
+
+
+        }
 
 
 });
 
-}
+});
 
-})
 
 controller.hears('weather (.*)','direct_message,direct_mention,mention',function(bot,message) { 
 	 let city = message.match[1];

@@ -159,6 +159,12 @@ bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " 
 
 });
 
+})
 
-
+controller.hears('lmgtfy (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+         let term = message.match[1];
+         term = term.replace(" ", "+")
+         console.log(term) 
+         let url = "http://lmgtfy.com/?q=" + term
+         bot.reply(message, "Here: " + url);
 })

@@ -52,7 +52,7 @@ bot.reply(message,"Searching using Google Custom Search Engine... ");
                 bot.reply(message,"Here are some results I got:");
 
                 for(var i=0; i < 3; i++){
-                        bot.reply(message, searchesjson);
+                        bot.reply(message, searchesjson['items'][i]['link']);
                         }
 
             } 

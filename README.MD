@@ -1,5 +1,5 @@
 
-# Google Assistant for Slack
+# Google Assistant for Slack[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4476f9276d914b6fb3c27afc3d284aeb)](https://www.codacy.com/app/matej.plavevski-github/GoogleAssistantSlack?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MatejMecka/GoogleAssistantSlack&amp;utm_campaign=Badge_Grade)
 
 ![](http://i.imgur.com/vskvm93.png)
 

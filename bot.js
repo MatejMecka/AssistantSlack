@@ -119,23 +119,45 @@ controller.hears('weather (.*)','direct_message,direct_mention,mention',function
 
 
 controller.hears('define (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+      let word = message.match[1];
+      let api = "https://od-api.oxforddictionaries.com:443/api/v1/entries/"  + config.language + '/' + word.toLowerCase()
 
-	let word = message.match[1];
-	let api = "https://od-api.oxforddictionaries.com:443/api/v1/entries/"  + config.language + '/' + word.toLowerCase()
-
-	var options = {
- 		 url: api,
-  		 headers: {
-    			'app_id': config.app_id ,
-			'app_key': config.app_key
-  			 }
-           };
+      var options = {
+                 url: api,
+                 headers: {
+                      'app_id': config.app_id ,
+                      'app_key': config.app_key
+                  }
+};
 
 function callback(error, response, body) {
   if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
-    bot.reply(message, word + "\n" + info['results'][0]['lexicalEntries'][0]['pronunciations'][0]['phoneticSpelling'] + "\n" + "/ "  + "_" + info['results'][0]['lexicalEntries'][0]['lexicalCategory'] + "_" )
-    bot.reply(message, "1. " + info['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'])	
+    var lex = info['results'][0]['lexicalEntries'][0]['lexicalCategory']
+    bot.reply(message,"Here is what I got: ")
+    bot.reply(message, {
+              attachments: [
+                  {
+                        fallback: "Word Summary.",
+                        color: "#00BCD4",
+                        author_name: "Oxford Dictionary",
+                        author_icon: "https://pbs.twimg.com/profile_images/772723194742595584/kMShKCMj.jpg",
+                        author_link: "https://www.oxforddictionaries.com/",
+                        title: word,
+     
+                        text: lex,
+                        fields: [
+                            {
+                                title: "Definition:",
+                                value: "1. " + info['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'],
+                                short: false
+                            }
+                        ],
+                        "footer": "data from Oxford Dictionaries"
+                  }
+              ]
+       });     
+  
   }
 }
 

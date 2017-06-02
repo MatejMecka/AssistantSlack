@@ -55,7 +55,7 @@ bot.reply(message,"Searching using Google Custom Search Engine... ");
                         bot.reply(message, searchesjson['items'][i]['link']);
                         };
 
-            }; 
+            }
 
 // If The Google Custom Engine Fails in any way it'll be redirect to the Google Scraper module.
 
@@ -78,7 +78,7 @@ bot.reply(message,"Searching using Google Custom Search Engine... ");
 
                 bot.reply(message, "There was an error with scraping Google too. Sorry for the inconvinience please try again later.");
 
-                 };
+                 }
 
                 else{
 
@@ -109,7 +109,7 @@ controller.hears('weather (.*)','direct_message,direct_mention,mention',function
          let temperaturejson =  weatherjson['main']['temp'];
          let temperature = Math.round(temperaturejson);
          bot.reply(message, "The weather for " + city + " is: " + weather + " with a temperature of " + temperature + "°C");
-            };
+            }
          else  {
               console.error(error);
               console.log(response);
@@ -127,7 +127,7 @@ controller.hears('define (.*)','direct_message,direct_mention,mention',function(
                  headers: {
                       'app_id': config.app_id ,
                       'app_key': config.app_key
-                  };
+                  }
 };
 
 function callback(error, response, body) {
@@ -191,7 +191,7 @@ controller.hears('exit','direct_message,direct_mention,mention',function(bot,mes
 	bot.reply(message, "Ok. Shutting down");
 	console.log("Shutted down 'by admin...");	
 	process.exit(1);
-	};
+	}
 	else{
 	bot.reply(message, ":warning: I'm sorry I'm afraid I can't let you do that");
 	console.log("User: " + message.user + " Tried to shut me down :c");

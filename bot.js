@@ -18,11 +18,11 @@ let bot = controller.spawn({
 
 }).startRTM();
 
-controller.hears('hello','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("hello","direct_message,direct_mention,mention",function(bot,message) { 
 	bot.reply(message, "Hey there! How can I help you?");
 });
 
-controller.on('bot_channel_join',function(bot,message){
+controller.on("bot_channel_join",function(bot,message){
 
 	bot.reply(message,"Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka on GitHub for that.");
 
@@ -30,30 +30,29 @@ controller.on('bot_channel_join',function(bot,message){
 });
 
 
-controller.on('user_channel_join',function(bot,message){
+controller.on("user_channel_join",function(bot,message){
 
 bot.reply("Hello there! Welcome to the [SLACK TEAM HERE] I'm your personal assistant. I still suck though so blame @matejmecka for that.");
 
 });
 
 
-controller.hears('search (.*)','direct_message,direct_mention,mention',function(bot,message) {
+controller.hears("search (.*)","direct_message,direct_mention,mention",function(bot,message) {
         let term = message.match[1];
         api = "https://www.googleapis.com/customsearch/v1?key=" + config.cseapi + "&cx=" + config.cse + "&q=" + term;
 
-
-bot.reply(message,"Searching using Google Custom Search Engine... ");
+	bot.reply(message,"Searching using Google Custom Search Engine... ");
 
     request(api, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
 
                 let searchesjson = JSON.parse(body);
 
                 bot.reply(message,"Here are some results I got:");
 
                 for(var i=0; i < 3; i++){
-                        bot.reply(message, searchesjson['items'][i]['link']);
-                        };
+                	bot.reply(message, searchesjson['items'][i]['link']);
+                }
 
             }
 
@@ -98,11 +97,11 @@ bot.reply(message,"Searching using Google Custom Search Engine... ");
 });
 
 
-controller.hears('weather (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("weather (.*)","direct_message,direct_mention,mention",function(bot,message) { 
 	 let city = message.match[1];
-	 let api = "http://api.openweathermap.org/data/2.5/weather?q=" + city +  "&units=metric&appid=" + config.weathertoken
+	 let api = "http://api.openweathermap.org/data/2.5/weather?q=" + city +  "&units=metric&appid=" + config.weathertoken;
 	 request(api, function(error, response, body) {
-         if (!error && response.statusCode == 200) {
+         if (!error && response.statusCode === 200) {
         // Try to parse the json. If it errors it gets caught.
          let weatherjson = JSON.parse(body);
          let weather = weatherjson['weather'][0]['main'];
@@ -118,7 +117,7 @@ controller.hears('weather (.*)','direct_message,direct_mention,mention',function
 });
 
 
-controller.hears('define (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("define (.*)","direct_message,direct_mention,mention",function(bot,message) { 
       let word = message.match[1];
       let api = "https://od-api.oxforddictionaries.com:443/api/v1/entries/"  + config.language + '/' + word.toLowerCase();
 
@@ -131,7 +130,7 @@ controller.hears('define (.*)','direct_message,direct_mention,mention',function(
 };
 
 function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
+  if (!error && response.statusCode === 200) {
     var info = JSON.parse(body);
     var lex = info['results'][0]['lexicalEntries'][0]['lexicalCategory'];
     bot.reply(message,"Here is what I got: ");
@@ -169,16 +168,16 @@ request(options, callback);
 
 
 
-controller.hears('date','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("date","direct_message,direct_mention,mention",function(bot,message) { 
 	let datetime = new Date();	  
         bot.reply(message, "Today is: " + datetime);
 });
 
-controller.hears(triggers.info,'direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears(triggers.info,"direct_message,direct_mention,mention",function(bot,message) { 
         bot.reply(message, "Hello there! I'm the @google bot and i'm here to help you with your searches on this slack chat! I'm made by @MatejMecka. You can learn more about me or contribute to my code on Github at https://github.com/MatejMecka/GoogleAssistantSlack/. I'm powered by Google, Dark Sky(For weather), Oxford's Dictionary API for the define command ");
 });
 
-controller.hears(triggers.love,'direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears(triggers.love,"direct_message,direct_mention,mention",function(bot,message) { 
 	bot.reply(message,"No.");
 });
 
@@ -186,25 +185,25 @@ controller.hears(triggers.love,'direct_message,direct_mention,mention',function(
 
 
 
-controller.hears('exit','direct_message,direct_mention,mention',function(bot,message) { 
-        if(message.user == config.admin){
-	bot.reply(message, "Ok. Shutting down");
-	console.log("Shutted down 'by admin...");	
-	process.exit(1);
+controller.hears("exit","direct_message,direct_mention,mention",function(bot,message) { 
+        if(message.user === config.admin){
+		bot.reply(message, "Ok. Shutting down");
+		console.log("Shutted down 'by admin...");	
+		process.exit(1);
 	}
 	else{
-	bot.reply(message, ":warning: I'm sorry I'm afraid I can't let you do that");
-	console.log("User: " + message.user + " Tried to shut me down :c");
+		bot.reply(message, ":warning: I'm sorry I'm afraid I can't let you do that");
+		console.log("User: " + message.user + " Tried to shut me down :c");
 };
 });
 
-controller.hears('translate (.*) ','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("translate (.*) ','direct_message,direct_mention,mention',function(bot,message) { 
 
 let totranslate = message.match[1];
 
 translate(totranslate, {to: targetlang}).then(res => {
 
-bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " + res.text);
+	bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " + res.text);
 
 
 }).catch(err => {
@@ -215,7 +214,7 @@ bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " 
 
 });
 
-controller.hears('lmgtfy (.*)','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("lmgtfy (.*)","direct_message,direct_mention,mention",function(bot,message) { 
          let term = message.match[1];
          term = term.replace(" ", "+");
          console.log(term) ;

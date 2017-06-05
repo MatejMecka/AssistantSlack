@@ -197,20 +197,27 @@ controller.hears("exit","direct_message,direct_mention,mention",function(bot,mes
 };
 });
 
-controller.hears("translate (.*) ','direct_message,direct_mention,mention',function(bot,message) { 
+controller.hears("translate (.*) to (.*)","direct_message,direct_mention,mention",function(bot,message) { 
 
-let totranslate = message.match[1];
+  let totranslate = message.match[1];
+  let targetlang = message.match[2]
 
-translate(totranslate, {to: targetlang}).then(res => {
+  if(targetlang === " "){
+    targetlang = "en"
+  }
 
-	bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " + res.text);
+  translate(totranslate, {to: targetlang}).then(res => {
+
+  bot.reply(message, "Translated from: " + res.from.language.iso + ". It means: " + res.text)
 
 
-}).catch(err => {
+  }).catch(err => {
 
-    console.error(err);
+      console.error(err);
+      bot.reply(message,err)  
+  });
 
-});
+
 
 });
 

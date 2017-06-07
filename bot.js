@@ -4,6 +4,7 @@ const blacklist = require("./blocklist.js");
 const triggers = require("./triggers.js");
 const request = require("request");
 const scraper = require('google-search-scraper');
+const tracker = require("googleflightscraper");
 
 let response = "Hello there :)"
 let controller = Botkit.slackbot({
@@ -51,7 +52,7 @@ controller.hears("search (.*)","direct_message,direct_mention,mention",function(
                 bot.reply(message,"Here are some results I got:");
 
                 for(var i=0; i < 3; i++){
-                	bot.reply(message, searchesjson['items'][i]['link']);
+			bot.reply(message, searchesjson['items'][i]['link']);
                 }
 
             }
@@ -64,9 +65,9 @@ controller.hears("search (.*)","direct_message,direct_mention,mention",function(
 
                  let  options = {
                         query: term,
-                	host: 'www.google.com',
-                        lang: 'en',
-                        limit: '3',
+                	host: "www.google.com",
+                        lang: "en",
+                        limit: "3",
                         params: {} 
                 };
 
@@ -124,8 +125,8 @@ controller.hears("define (.*)","direct_message,direct_mention,mention",function(
       var options = {
                  url: api,
                  headers: {
-                      'app_id': config.app_id ,
-                      'app_key': config.app_key
+                      "app_id": config.app_id ,
+                      "app_key": config.app_key
                   }
 };
 
@@ -188,7 +189,6 @@ controller.hears(triggers.love,"direct_message,direct_mention,mention",function(
 controller.hears("exit","direct_message,direct_mention,mention",function(bot,message) { 
         if(message.user === config.admin){
 		bot.reply(message, "Ok. Shutting down");
-		console.log("Shutted down 'by admin...");	
 		process.exit(1);
 	}
 	else{
@@ -200,7 +200,7 @@ controller.hears("exit","direct_message,direct_mention,mention",function(bot,mes
 controller.hears("translate (.*) to (.*)","direct_message,direct_mention,mention",function(bot,message) { 
 
   let totranslate = message.match[1];
-  let targetlang = message.match[2]
+  let targetlang = message.match[2];
 
   if(targetlang === " "){
     targetlang = "en"
@@ -224,7 +224,65 @@ controller.hears("translate (.*) to (.*)","direct_message,direct_mention,mention
 controller.hears("lmgtfy (.*)","direct_message,direct_mention,mention",function(bot,message) { 
          let term = message.match[1];
          term = term.replace(" ", "+");
-         console.log(term) ;
          let url = "http://lmgtfy.com/?q=" + term;
          bot.reply(message, "Here: " + url);
 });
+
+controller.hears("flight (.*)","direct_message,direct_mention,mention",function(bot,message) { 
+
+var tosend = message.match[1];
+
+tracker(tosend, function(flightinfo){
+
+	var dep = flightinfo["DepartureCountry"];
+	var arr = flightinfo["ArrivalCountry"];
+	var deptime = flightinfo["DepartureTime"];
+	var arrtime = flightinfo["ArrivalTime"];
+	var depterminal = flightinfo["DepartureTerminal"];
+	var arrterminal = flightinfo["ArrivalTerminal"];
+	var status = flightinfo["Status"];
+	var info = flightinfo["Information"];
+	var flight = flightinfo["Flight"];
+
+	bot.reply(message, {
+            attachments: [
+        {
+
+           fallback: "Flight Summary.",
+            color: "#2780f8",
+            author_name: "Google",
+            author_icon: "https://www.seeklogo.net/wp-content/uploads/2015/09/google-favicon-vector-200x200.png",
+            author_link: "https://www.google.com/",
+            title: ":airplane: " + flight,
+            text: "Status: " + status,
+            fields: [
+                {
+                    title: "From: ",
+                    value: ":airplane_departure:"+ dep + "\n:clock1:" + deptime +"\n:office:" + depterminal,
+                    short: true
+                },
+                                                {
+                    title:"Arrival: ",
+                    value: ":airplane_arriving:"+ arr + "\n:clock1:" + arrtime +"\n:office:" + arrterminal,
+                    short: true
+                },
+                {
+                    title:"Information: ",
+                    value: info,
+                    short: true
+                }
+            ],
+            footer: "data from Google"
+        }
+    ]
+
+
+});
+
+
+
+	});
+
+
+});
+

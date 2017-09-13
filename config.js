@@ -7,7 +7,8 @@ app_id: "", // App ID From Oxford Dictionaries
 app_key: "", // App Key From Oxford Dictionaries
 language: "en", // Language for Oxford Dictionaries 
 cse: "", // Google Custom Search Engine Key.
-cseapi: "" // Google Search API Key.
+cseapi: "", // Google Search API Key.
+gifapi: "" // Tenor API Key  
 }
 
 module.exports = config;

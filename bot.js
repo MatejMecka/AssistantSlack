@@ -286,3 +286,18 @@ tracker(tosend, function(flightinfo){
 
 });
 
+controller.hears("gif (.*)","direct_message,direct_mention,mention",function(bot,message) {
+        let gif = message.match[1];
+        let api = "https://api.tenor.com/v1/search?q=" + gif + "&key=" + config.gifapi
+         request(api, function(error, response, body) {
+         	if (!error && response.statusCode === 200) {
+        		 let tenorjson = JSON.parse(body);
+         		 let giftosend = tenorjson['results'][0]['url'];
+         		 bot.reply(message, giftosend);
+            }
+        	 else  {
+             	 console.error(error);
+              	 console.log(response);
+             };
+	  });
+}); 

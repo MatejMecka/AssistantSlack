@@ -1,6 +1,5 @@
 const Botkit = require("botkit");
 const config = require("./config.js");
-const blacklist = require("./blocklist.js");
 const triggers = require("./triggers.js");
 const request = require("request");
 const scraper = require('google-search-scraper');

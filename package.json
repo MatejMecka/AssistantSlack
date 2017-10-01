@@ -1,0 +1,32 @@
+{
+  "name": "google-assistant-slack",
+  "version": "1.0.0",
+  "description": "a Google Assistant that should help you on Slack",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatejMecka/GoogleAssistantSlack.git"
+  },
+  "keywords": [
+    "bot",
+    "google",
+    "assistant",
+    "slack",
+    "botkit"
+  ],
+  "author": "MatejMecka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MatejMecka/GoogleAssistantSlack/issues"
+  },
+  "homepage": "https://github.com/MatejMecka/GoogleAssistantSlack#readme",
+  "dependencies": {
+    "botkit": "^0.6.3",
+    "google-search-scraper": "0.0.3",
+    "google-translate": "^2.0.5",
+    "request": "^2.83.0"
+  }
+}

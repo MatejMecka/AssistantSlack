@@ -3,7 +3,7 @@
 
 ![](http://i.imgur.com/vskvm93.png)
 
-A Google Assistant, but on Slack.
+A Google Assistant, but on Slack. It allows you to search Google, fetch the date, look up GIFs, and more. More features are in the works.
 
 ### Requirements:
 

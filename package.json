@@ -27,6 +27,7 @@
     "botkit": "^0.6.3",
     "google-search-scraper": "0.0.3",
     "google-translate": "^2.0.5",
+    "googleflightscraper": "^2.1.0",
     "request": "^2.83.0"
   }
 }

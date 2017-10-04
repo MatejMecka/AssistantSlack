@@ -120,7 +120,7 @@ controller.hears("define (.*)", "direct_message,direct_mention,mention", functio
 });
 
 
-controller.hears("scoreboard (.*)","direct_message,direct_mention,mention",function(bot,message) {
+controller.hears("scores (.*)","direct_message,direct_mention,mention",function(bot,message) {
 
 	 let input = message.match[1];
 	 let parms = input.split(" ");
@@ -135,18 +135,26 @@ controller.hears("scoreboard (.*)","direct_message,direct_mention,mention",funct
  		 	'Authorization': auth
 		}
 	 }
-   
+
 	 request.get(options, function(error,response,body){
 	    if (!error && response.statusCode === 200) {
 	   		// Try to parse the json. If it errors it gets caught.
 	    	let scoreboardjson = JSON.parse(body);
 
-				let awayTeam = scoreboardjson['scoreboard']['gameScore'][0]['game']['awayTeam']['Abbreviation']
-				let homeTeam = scoreboardjson['scoreboard']['gameScore'][0]['game']['homeTeam']['Abbreviation']
-				let awayScore = scoreboardjson['scoreboard']['gameScore'][0]['awayScore']
-				let homeScore = scoreboardjson['scoreboard']['gameScore'][0]['homeScore']
+        if (scoreboardjson['scoreboard']['gameScore'] === undefined){
+          bot.reply(message, "Sorry!  I couldn't find any scores for that day");
+        }
+        else{
+          bot.reply(message, "Here are the scores for that day:");
 
-	    	bot.reply(message, awayTeam + " " + awayScore + " |VS| " + homeTeam + " " + homeScore);
+          for (var i = 0; i < scoreboardjson['scoreboard']['gameScore'].length; i++) {
+				      let awayTeam = scoreboardjson['scoreboard']['gameScore'][i]['game']['awayTeam']['Abbreviation']
+				      let homeTeam = scoreboardjson['scoreboard']['gameScore'][i]['game']['homeTeam']['Abbreviation']
+				      let awayScore = scoreboardjson['scoreboard']['gameScore'][i]['awayScore']
+				      let homeScore = scoreboardjson['scoreboard']['gameScore'][i]['homeScore']
+              bot.reply(message, ">" + awayTeam + " " + awayScore + " |VS| " + homeTeam + " " + homeScore);
+          }
+        }
 	    }
 	    else  {
 	         console.error(error);

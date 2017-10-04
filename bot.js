@@ -119,6 +119,42 @@ controller.hears("define (.*)", "direct_message,direct_mention,mention", functio
     request(options, callback);
 });
 
+
+controller.hears("scoreboard (.*)","direct_message,direct_mention,mention",function(bot,message) {
+
+	 let input = message.match[1];
+	 let parms = input.split(" ");
+
+	 let auth = "Basic " + new Buffer(config.mysportsfeeds).toString("base64");
+
+	 let api = "https://api.mysportsfeeds.com/v1.1/pull/" + parms[0] + "/2016-regular/scoreboard.json?fordate="+parms[1];
+
+	 var options={
+		 url: api,
+		 headers: {
+ 		 	'Authorization': auth
+		}
+	 }
+   
+	 request.get(options, function(error,response,body){
+	    if (!error && response.statusCode === 200) {
+	   		// Try to parse the json. If it errors it gets caught.
+	    	let scoreboardjson = JSON.parse(body);
+
+				let awayTeam = scoreboardjson['scoreboard']['gameScore'][0]['game']['awayTeam']['Abbreviation']
+				let homeTeam = scoreboardjson['scoreboard']['gameScore'][0]['game']['homeTeam']['Abbreviation']
+				let awayScore = scoreboardjson['scoreboard']['gameScore'][0]['awayScore']
+				let homeScore = scoreboardjson['scoreboard']['gameScore'][0]['homeScore']
+
+	    	bot.reply(message, awayTeam + " " + awayScore + " |VS| " + homeTeam + " " + homeScore);
+	    }
+	    else  {
+	         console.error(error);
+	         console.log(response);
+	        };
+	 });
+});
+
 controller.hears("date", "direct_message,direct_mention,mention", function(bot, message) {
     let datetime = new Date();
     bot.reply(message, "Today is: " + datetime);

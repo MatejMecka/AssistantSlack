@@ -33,7 +33,7 @@ A Slack Bot that is a Google Assistant. No not that assistant on Google Home dev
 
  - Update the config.js file providing the bot user auth token
  - Start the Bot running locally via node
-   '''node bot.js'''
+   ' node bot.js '
  - Console output for running bot
   ```
   Initializing Botkit v0.6.3
@@ -48,7 +48,7 @@ A Slack Bot that is a Google Assistant. No not that assistant on Google Home dev
 #### Other Services and APIs
   - You should register for an API KEY or access to the apis running the other services in order to make use of those commands
   - Update the config.js with your keys and information as necessary
-  
+
 ### Known Issues:
 
  - Google Search Scraper gives 10 results instead of the results specified(Fixed by modyfing directly the module)

@@ -14,11 +14,38 @@ A Google Assistant, but on Slack. It allows you to search Google, fetch the date
  - Oxford Dictionary API
 
 ### Installation:
-	
+
 `npm install`
- 
+
+### Getting Started:
+#### Running Locally as a Custom Integration
+ - Create a new custom integration in your Slack workspace
+   https://api.slack.com/apps?new_app=1
+ - Under the Add Features and Functionality section add a new bot
+ - Give the bot a Display name and Default User name and complete by adding the new bot user
+ - Under the Settings section, select Install App and install your new add to your workspace
+ - After installation, the OAuth Tokens for Your Team is displayed.  Copy the bot user auth token (xoxb -)
+
+ - Update the config.js file providing the bot user auth token
+ - Start the Bot running locally via node
+   `node bot.js`
+ - Console output for running bot
+  ```
+  Initializing Botkit v0.6.3
+  info: ** No persistent storage method specified! Data may be lost when process shuts down.
+  info: ** API CALL: https://slack.com/api/rtm.connect
+  notice: ** BOT ID: botname ...attempting to connect to RTM!
+  notice: RTM websocket opened
+ ```
+ - Once running got to your Slack workspace, and click on your Bot under the Apps section
+ - Say 'Hello' to the Bot and if configured correctly you should get the response 'Hey there! How can I help you?'
+
+#### Other Services and APIs
+  - You should register for an API KEY or access to the apis running the other services in order to make use of those commands
+  - Update the config.js with your keys and information as necessary
+
 ### Known Issues:
- 
+
  - Google Search Scraper gives 10 results instead of the results specified (fixed by modifying directly the module)
  - Captcha (make a VPN for the bot, connect via VPN, fill out captcha for latest search, try again)
  - Translation returns BAD_NETWORK or something like that (fixed by modifying directly the module)

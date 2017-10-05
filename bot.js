@@ -119,6 +119,50 @@ controller.hears("define (.*)", "direct_message,direct_mention,mention", functio
     request(options, callback);
 });
 
+
+controller.hears("scores (.*)","direct_message,direct_mention,mention",function(bot,message) {
+
+	 let input = message.match[1];
+	 let parms = input.split(" ");
+
+	 let auth = "Basic " + new Buffer(config.mysportsfeeds).toString("base64");
+
+	 let api = "https://api.mysportsfeeds.com/v1.1/pull/" + parms[0] + "/2016-regular/scoreboard.json?fordate="+parms[1];
+
+	 var options={
+		 url: api,
+		 headers: {
+ 		 	'Authorization': auth
+		}
+	 }
+
+	 request.get(options, function(error,response,body){
+	    if (!error && response.statusCode === 200) {
+	   		// Try to parse the json. If it errors it gets caught.
+	    	let scoreboardjson = JSON.parse(body);
+
+        if (scoreboardjson['scoreboard']['gameScore'] === undefined){
+          bot.reply(message, "Sorry!  I couldn't find any scores for that day");
+        }
+        else{
+          bot.reply(message, "Here are the scores for that day:");
+
+          for (var i = 0; i < scoreboardjson['scoreboard']['gameScore'].length; i++) {
+				      let awayTeam = scoreboardjson['scoreboard']['gameScore'][i]['game']['awayTeam']['Abbreviation']
+				      let homeTeam = scoreboardjson['scoreboard']['gameScore'][i]['game']['homeTeam']['Abbreviation']
+				      let awayScore = scoreboardjson['scoreboard']['gameScore'][i]['awayScore']
+				      let homeScore = scoreboardjson['scoreboard']['gameScore'][i]['homeScore']
+              bot.reply(message, ">" + awayTeam + " " + awayScore + " |VS| " + homeTeam + " " + homeScore);
+          }
+        }
+	    }
+	    else  {
+	         console.error(error);
+	         console.log(response);
+	        };
+	 });
+});
+
 controller.hears("date", "direct_message,direct_mention,mention", function(bot, message) {
     let datetime = new Date();
     bot.reply(message, "Today is: " + datetime);

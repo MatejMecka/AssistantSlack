@@ -8,5 +8,6 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 1. Reference the Issue you are submitting the PR for.
 2. For the pr to be merged please verify that it works. We will do too.
+3. CircleCi is going to check your eslint :)
 3. Have fun :)
 

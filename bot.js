@@ -26,13 +26,13 @@ controller.hears('hello', 'direct_message,direct_mention,mention', function (
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(
     message,
-    "Hello! I am the @google bot and I'm here to be your personal assistant. I still suck thought so blame @matejmecka on GitHub for that."
+    "Hello! I am the @google bot and I'm here to be your personal assistant. I still suck though, blame @matejmecka on GitHub for that."
   )
 })
 
 controller.on('user_channel_join', function (bot, message) {
   bot.reply(
-    "Hello there! Welcome to the [SLACK TEAM HERE] I'm your personal assistant. I still suck though so blame @matejmecka for that."
+    "Hello there! Welcome to the [SLACK TEAM HERE] I'm your personal assistant. I still suck though, blame @matejmecka for that."
   )
 })
 

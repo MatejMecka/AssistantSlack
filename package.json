@@ -25,7 +25,7 @@
   "homepage": "https://github.com/MatejMecka/GoogleAssistantSlack#readme",
   "dependencies": {
     "botkit": "^0.6.13",
-    "google-search-scraper": "^0.0.3",
+    "google-search-scraper": "^0.1.0",
     "google-translate": "^2.1.0",
     "googleflightscraper": "^2.1.2",
     "request": "^2.85.0"

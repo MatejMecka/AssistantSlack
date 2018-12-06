@@ -24,18 +24,18 @@
   },
   "homepage": "https://github.com/MatejMecka/GoogleAssistantSlack#readme",
   "dependencies": {
-    "botkit": "^0.6.13",
+    "botkit": "^0.6.21",
     "google-search-scraper": "^0.1.0",
     "google-translate": "^2.1.0",
     "googleflightscraper": "^2.1.2",
     "request": "^2.85.0"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.1.0"
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
   }
 }

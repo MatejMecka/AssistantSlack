@@ -7,6 +7,7 @@ const triggerCMDs = require('./botFuncs/triggerCMDs.js')
 const dictCMDs = require('./botFuncs/dictCMDs.js')
 
 let controller = Botkit.slackbot({
+  clientSigningSecret: config.token,
   debug: false
 })
 

@@ -86,8 +86,8 @@ controller.hears(
 
 controller.hears(
   'flight (.*)',
-  'direct_message,direct_mention,mention'
-
+  'direct_message,direct_mention,mention',
+  webCMDs.flightQuery
 )
 
 controller.hears('gif (.*)',

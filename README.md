@@ -17,6 +17,9 @@ A Google Assistant, but on Slack. It allows you to search Google, fetch the date
 
 `npm install`
 
+### Create Config File
+`npm run config`
+
 ### Getting Started:
 #### Running Locally as a Custom Integration
  - Create a new custom integration in your Slack workspace

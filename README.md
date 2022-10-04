@@ -1,5 +1,5 @@
 
-#Assistant for Slack [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4476f9276d914b6fb3c27afc3d284aeb)](https://www.codacy.com/app/matej.plavevski-github/AssistantSlack?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MatejMecka/AssistantSlack&amp;utm_campaign=Badge_Grade) [![Join the chat at https://gitter.im/AssistantSlack/Lobby](https://badges.gitter.im/AssistantSlack/Lobby.svg)](https://gitter.im/AssistantSlack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Assistant for Slack [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4476f9276d914b6fb3c27afc3d284aeb)](https://www.codacy.com/app/matej.plavevski-github/AssistantSlack?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MatejMecka/AssistantSlack&amp;utm_campaign=Badge_Grade) [![Join the chat at https://gitter.im/AssistantSlack/Lobby](https://badges.gitter.im/AssistantSlack/Lobby.svg)](https://gitter.im/AssistantSlack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 A Assistant, but on Slack. It allows you to search Google, fetch the date, look up GIFs, and more. More features are in the works.
